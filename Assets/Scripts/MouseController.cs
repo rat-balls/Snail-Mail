@@ -39,7 +39,7 @@ public class MouseController : MonoBehaviour
                    PositionCharacterOnTile(overlayTile);
                }else
                {
-                   var path = pathFinder.FindPath(character.activeTile, overlayTile);
+                   path = pathFinder.FindPath(character.activeTile, overlayTile);
                }
            }
        }
@@ -51,15 +51,17 @@ public class MouseController : MonoBehaviour
    private void MoveAlongPath()
    {
        var step = speed * Time.deltaTime;
-       var zIndex = path[0].transform.position.z;
-       character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position, speed * Time.deltaTime);
+
+       float zIndex = path[0].transform.position.z;
+       character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position, step);
        character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
 
-       if(Vector2.Distance(character.transform.position, path[0].transform.position) < 0.3f)
+       if(Vector2.Distance(character.transform.position, path[0].transform.position) < 0.00000001f)
        {
            PositionCharacterOnTile(path[0]);
            path.RemoveAt(0);
        }
+
    }
 
    public RaycastHit2D? GetFocusedOnTile()
