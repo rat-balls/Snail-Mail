@@ -53,10 +53,10 @@ public class MouseController : MonoBehaviour
        var step = speed * Time.deltaTime;
 
        float zIndex = path[0].transform.position.z;
-       character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position, step);
+       character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position + new Vector3(0, 0.3f, 0) , step);
        character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
 
-       if(Vector2.Distance(character.transform.position, path[0].transform.position) < 0.00000001f)
+       if(Vector2.Distance(character.transform.position, path[0].transform.position + new Vector3(0, 0.3f, 0)) < 0.00000001f) 
        {
            PositionCharacterOnTile(path[0]);
            path.RemoveAt(0);
