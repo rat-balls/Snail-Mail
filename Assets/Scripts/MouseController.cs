@@ -13,6 +13,10 @@ public class MouseController : MonoBehaviour
 
     private PathFinder pathFinder;
     private List<OverlayTile> path = new List<OverlayTile>();
+    public Sprite topLeftSprite;
+    public Sprite topRightSprite;
+    public Sprite bottomLeftSprite;
+    public Sprite bottomRightSprite;
 
 
    private void Start()
@@ -49,20 +53,48 @@ public class MouseController : MonoBehaviour
        }
    }
    private void MoveAlongPath()
-   {
-       var step = speed * Time.deltaTime;
+    {
+        var step = speed * Time.deltaTime;
 
-       float zIndex = path[0].transform.position.z;
-       character.transform.position = Vector2.MoveTowards(character.transform.position, path[0].transform.position + new Vector3(0, 0.3f, 0) , step);
-       character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
+        float zIndex = path[0].transform.position.z;
+        Vector3 targetPosition = path[0].transform.position + new Vector3(0, 0.3f, 0);
+        Vector3 movementDirection = targetPosition - character.transform.position;
+        movementDirection.z = 0;
+        movementDirection.Normalize();
+        character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
+        character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
 
-       if(Vector2.Distance(character.transform.position, path[0].transform.position + new Vector3(0, 0.3f, 0)) < 0.00000001f) 
-       {
-           PositionCharacterOnTile(path[0]);
-           path.RemoveAt(0);
-       }
+        if (Vector2.Distance(character.transform.position, targetPosition) < 0.00000001f)
+        {
+            PositionCharacterOnTile(path[0]);
+            path.RemoveAt(0);
+        }
 
-   }
+        if (movementDirection.y > 0)
+        {
+            if (movementDirection.x > 0)
+            {
+                character.GetComponent<SpriteRenderer>().sprite = topRightSprite;
+
+            }
+            else
+            {
+                character.GetComponent<SpriteRenderer>().sprite = topLeftSprite;
+            }
+        }
+        else
+        {
+            if (movementDirection.x > 0)
+            {
+                character.GetComponent<SpriteRenderer>().sprite = bottomRightSprite;
+            }
+            else
+            {
+                character.GetComponent<SpriteRenderer>().sprite = bottomLeftSprite;
+            }
+        }
+    }
+
 
    public RaycastHit2D? GetFocusedOnTile()
    {
