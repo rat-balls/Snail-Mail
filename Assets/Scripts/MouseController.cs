@@ -68,7 +68,7 @@ public class MouseController : MonoBehaviour
             path.RemoveAt(0);
         }
 
-        if ((movementDirection.y > 0 || movementDirection.x > 0) && !hasSlimed)
+        if ((movementDirection.y > 0 || movementDirection.x > 0 || movementDirection.z > 0) && !hasSlimed)
         {
             hasSlimed = true;
             StartCoroutine(Slime());
