@@ -704,11 +704,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3145295146296848233, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.016
+      value: -1.982
       objectReference: {fileID: 0}
     - target: {fileID: 3145295146296848233, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.033
+      value: 1.052
       objectReference: {fileID: 0}
     - target: {fileID: 3145295146296848233, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
       propertyPath: m_LocalPosition.z
@@ -742,6 +742,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4068379816990118225, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a5420e84aff8a7d45b4388262c3808e1, type: 3}
     - target: {fileID: 8216233728110213061, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
       propertyPath: slimeBar
       value: 
