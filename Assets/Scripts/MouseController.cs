@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class MouseController : MonoBehaviour
 {
+    [SerializeField] private GameObject slimeTilePrefab;
+    [SerializeField] private GameObject slimeContainer;
 
     public float speed;
-
-    [SerializeField] private MapManager map;
     public GameObject characterPrefab;
     private CharacterInfo character;
 
@@ -19,6 +19,8 @@ public class MouseController : MonoBehaviour
     public Sprite topRightSprite;
     public Sprite bottomLeftSprite;
     public Sprite bottomRightSprite;
+
+    private bool hasSlimed = false;
 
    private void Start()
    {
@@ -66,6 +68,12 @@ public class MouseController : MonoBehaviour
             path.RemoveAt(0);
         }
 
+        if ((movementDirection.y > 0 || movementDirection.x > 0) && !hasSlimed)
+        {
+            hasSlimed = true;
+            StartCoroutine(Slime());
+        }
+
         if (movementDirection.y > 0)
         {
             if (movementDirection.x > 0)
@@ -89,6 +97,15 @@ public class MouseController : MonoBehaviour
                 character.GetComponent<SpriteRenderer>().sprite = bottomLeftSprite;
             }
         }
+    }
+
+    IEnumerator Slime()
+    {
+        var slimeTile = Instantiate(slimeTilePrefab, slimeContainer.transform);
+        slimeTile.transform.position = new Vector3(characterPrefab.transform.position.x, characterPrefab.transform.position.y - 0.30f, characterPrefab.transform.position.z);
+        character.SlimeReserve -= 5f;
+        yield return new WaitForSeconds(0.34f);
+        hasSlimed = false;
     }
 
 
