@@ -31,17 +31,18 @@ public class MouseController : MonoBehaviour
    {
        var focusedTileHit = GetFocusedOnTile();
 
-        if (focusedTileHit.HasValue)
+       if (focusedTileHit.HasValue)
        {
            OverlayTile overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<OverlayTile>();
-           transform.position = overlayTile.transform.position;
-           gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder;
-            
-           if (Input.GetMouseButtonDown(0))
+           if (overlayTile != null)
            {
-                overlayTile.ShowTile();
-                path = pathFinder.FindPath(character.activeTile, overlayTile);
-               
+               transform.position = overlayTile.transform.position;
+               gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder;
+               if (Input.GetMouseButtonDown(0))
+               {
+                   overlayTile.ShowTile();
+                   path = pathFinder.FindPath(character.activeTile, overlayTile);
+               }
            }
        }
        if(path.Count > 0)
