@@ -8,6 +8,7 @@ public class PathFinder
 {
    public List<OverlayTile> FindPath(OverlayTile start, OverlayTile end)
    {
+	   
 	   List<OverlayTile> openList = new List<OverlayTile>();
 	   List<OverlayTile> closedList = new List<OverlayTile>();
 
@@ -15,12 +16,14 @@ public class PathFinder
 
 	   while(openList.Count > 0)
 	   {
+		    
 			OverlayTile currentOverlayTile = openList.OrderBy(x => x.F).First();
 			openList.Remove(currentOverlayTile);
 			closedList.Add(currentOverlayTile);
-
+			Debug.Log(currentOverlayTile);
 			if(currentOverlayTile == end)
 			{
+				
 				return GetFinishedList(start, end);
 			}
 
