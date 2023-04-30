@@ -17,4 +17,4 @@ public class CharacterInfo : MonoBehaviour
         slimeBar.fillAmount = SlimeReserve / MAX_SLIME;
     }
 
-}
+}  
