@@ -8,6 +8,8 @@ public class MouseController : MonoBehaviour
 {
     [SerializeField] private GameObject slimeTilePrefab;
     [SerializeField] private GameObject slimeContainer;
+    [SerializeField] private LayerMask interactLayer;
+
 
     public float speed;
     public GameObject characterPrefab;
@@ -30,6 +32,7 @@ public class MouseController : MonoBehaviour
    void LateUpdate()
    {
        var focusedTileHit = GetFocusedOnTile();
+       var currentTileHit = GetCurrentTile();
 
        if (focusedTileHit.HasValue)
        {
@@ -48,6 +51,11 @@ public class MouseController : MonoBehaviour
        if(path.Count > 0)
        {
            MoveAlongPath();
+       }
+
+        if (currentTileHit)
+       {
+            Debug.Log(currentTileHit.collider.gameObject.tag);
        }
    }
    private void MoveAlongPath()
@@ -68,7 +76,7 @@ public class MouseController : MonoBehaviour
             path.RemoveAt(0);
         }
 
-        if ((movementDirection.y > 0 || movementDirection.x > 0 || movementDirection.z > 0) && !hasSlimed)
+        if ((movementDirection.y != 0 || movementDirection.x != 0) && !hasSlimed)
         {
             hasSlimed = true;
             StartCoroutine(Slime());
@@ -122,6 +130,15 @@ public class MouseController : MonoBehaviour
        }
        return null;
    }
+
+    public RaycastHit2D GetCurrentTile()
+   {
+       Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
+
+       RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.down, Mathf.Infinity, interactLayer);
+
+       return hit;
+   }    
 
    private void PositionCharacterOnTile(OverlayTile tile)
    {

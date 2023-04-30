@@ -20,7 +20,6 @@ public class PathFinder
 			OverlayTile currentOverlayTile = openList.OrderBy(x => x.F).First();
 			openList.Remove(currentOverlayTile);
 			closedList.Add(currentOverlayTile);
-			Debug.Log(currentOverlayTile);
 			if(currentOverlayTile == end)
 			{
 				
