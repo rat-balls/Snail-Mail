@@ -10,6 +10,7 @@ public class MouseController : MonoBehaviour
     public float speed;
 
     [SerializeField] private MapManager map;
+    public GameObject characterPrefab;
     private CharacterInfo character;
 
     private PathFinder pathFinder;
@@ -22,12 +23,10 @@ public class MouseController : MonoBehaviour
    private void Start()
    {
         pathFinder = new PathFinder();
-        character = map.snailCharacter;
+        character = characterPrefab.GetComponent<CharacterInfo>();
    }
    void LateUpdate()
    {
-        character = map.snailCharacter;
-
        var focusedTileHit = GetFocusedOnTile();
 
         if (focusedTileHit.HasValue)

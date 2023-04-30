@@ -8,8 +8,6 @@ public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
     public static MapManager Instance { get { return instance; } }
-    public GameObject characterPrefab;     
-    public CharacterInfo snailCharacter;
     public OverlayTile overlayTilePrefab;
     public GameObject overlayContainer;
 
@@ -28,10 +26,6 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        if (snailCharacter == null)
-        {
-            snailCharacter = Instantiate(characterPrefab).GetComponent<CharacterInfo>();
-        }
         var tileMap = gameObject.GetComponentInChildren<Tilemap>();
         map = new Dictionary<Vector2Int, OverlayTile>();
 
@@ -54,21 +48,11 @@ public class MapManager : MonoBehaviour
                         overlayTile.transform.position = new Vector3(cellWorldPosition.x, cellWorldPosition.y, cellWorldPosition.z+1);
                         overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
                         overlayTile.gridLocation = tileLocation;
-                        map.Add(tileKey, overlayTile);
-                        PositionCharacterOnTile(overlayTile);
-                        
+                        map.Add(tileKey, overlayTile);                        
                     }
                 }
             }
         }
     }
-
-    
-   private void PositionCharacterOnTile(OverlayTile tile)
-   {
-       snailCharacter.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+0.3f, tile.transform.position.z);
-       snailCharacter.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
-       snailCharacter.activeTile = tile;
-   }
 
 }
