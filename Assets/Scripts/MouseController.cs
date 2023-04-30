@@ -18,7 +18,6 @@ public class MouseController : MonoBehaviour
     public Sprite bottomLeftSprite;
     public Sprite bottomRightSprite;
 
-
    private void Start()
    {
        pathFinder = new PathFinder();
@@ -41,6 +40,7 @@ public class MouseController : MonoBehaviour
                {
                    character = Instantiate(characterPrefab).GetComponent<CharacterInfo>();
                    PositionCharacterOnTile(overlayTile);
+                   Debug.Log(overlayTile);
                }else
                {
                    path = pathFinder.FindPath(character.activeTile, overlayTile);

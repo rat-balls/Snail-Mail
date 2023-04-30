@@ -75,10 +75,7 @@ public class PathFinder
 
 	   List<OverlayTile> neighbours = new List<OverlayTile>();
 
-	   Vector2Int locationToCheck = new Vector2Int(
-			currentOverlayTile.gridLocation.x,
-			currentOverlayTile.gridLocation.y + 1
-		);
+	   Vector2Int locationToCheck = new Vector2Int(currentOverlayTile.gridLocation.x, currentOverlayTile.gridLocation.y + 1);
 
 	   if(map.ContainsKey(locationToCheck))
 	   {
