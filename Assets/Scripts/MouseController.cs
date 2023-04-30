@@ -8,7 +8,8 @@ public class MouseController : MonoBehaviour
 {
 
     public float speed;
-    public GameObject characterPrefab;     
+
+    [SerializeField] private MapManager map;
     private CharacterInfo character;
 
     private PathFinder pathFinder;
@@ -20,10 +21,13 @@ public class MouseController : MonoBehaviour
 
    private void Start()
    {
-       pathFinder = new PathFinder();
+        pathFinder = new PathFinder();
+        character = map.snailCharacter;
    }
    void LateUpdate()
    {
+        character = map.snailCharacter;
+
        var focusedTileHit = GetFocusedOnTile();
 
         if (focusedTileHit.HasValue)
@@ -34,17 +38,9 @@ public class MouseController : MonoBehaviour
             
            if (Input.GetMouseButtonDown(0))
            {
-               overlayTile.ShowTile();
-
-               if (character == null)
-               {
-                   character = Instantiate(characterPrefab).GetComponent<CharacterInfo>();
-                   PositionCharacterOnTile(overlayTile);
-                   Debug.Log(overlayTile);
-               }else
-               {
-                   path = pathFinder.FindPath(character.activeTile, overlayTile);
-               }
+                overlayTile.ShowTile();
+                path = pathFinder.FindPath(character.activeTile, overlayTile);
+               
            }
        }
        if(path.Count > 0)

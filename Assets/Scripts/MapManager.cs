@@ -8,7 +8,8 @@ public class MapManager : MonoBehaviour
 {
     private static MapManager instance;
     public static MapManager Instance { get { return instance; } }
-
+    public GameObject characterPrefab;     
+    public CharacterInfo snailCharacter;
     public OverlayTile overlayTilePrefab;
     public GameObject overlayContainer;
 
@@ -27,6 +28,10 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        if (snailCharacter == null)
+        {
+            snailCharacter = Instantiate(characterPrefab).GetComponent<CharacterInfo>();
+        }
         var tileMap = gameObject.GetComponentInChildren<Tilemap>();
         map = new Dictionary<Vector2Int, OverlayTile>();
 
@@ -41,7 +46,8 @@ public class MapManager : MonoBehaviour
                     var tileLocation = new Vector3Int(x, y, z);
                     var tileKey = new Vector2Int(x, y);
                     if (tileMap.HasTile(tileLocation) && !map.ContainsKey(tileKey))
-                    {
+                    {   
+                        
                         var overlayTile = Instantiate(overlayTilePrefab, overlayContainer.transform);
                         var cellWorldPosition = tileMap.GetCellCenterWorld(tileLocation);
 
@@ -49,10 +55,20 @@ public class MapManager : MonoBehaviour
                         overlayTile.GetComponent<SpriteRenderer>().sortingOrder = tileMap.GetComponent<TilemapRenderer>().sortingOrder;
                         overlayTile.gridLocation = tileLocation;
                         map.Add(tileKey, overlayTile);
+                        PositionCharacterOnTile(overlayTile);
+                        
                     }
                 }
             }
         }
     }
+
+    
+   private void PositionCharacterOnTile(OverlayTile tile)
+   {
+       snailCharacter.transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y+0.3f, tile.transform.position.z);
+       snailCharacter.GetComponent<SpriteRenderer>().sortingOrder = tile.GetComponent<SpriteRenderer>().sortingOrder + 1;
+       snailCharacter.activeTile = tile;
+   }
 
 }

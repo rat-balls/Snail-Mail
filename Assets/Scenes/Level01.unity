@@ -267,13 +267,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229856338}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -301.56766, y: -316.27466, z: -1849.0906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 2142782322}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &371124205
 GameObject:
@@ -510,7 +510,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697394856}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.72031933, y: 0.5705985, z: 50.411564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36260b17cb2575748af53a6c66cfbd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingTile: {fileID: 0}
   speed: 1
   characterPrefab: {fileID: 1313304071188042053, guid: 46026fbf678e3e444b8e9c46c78e2615, type: 3}
   topLeftSprite: {fileID: 21300000, guid: 05b8a36ab42bc9e438102db831dfd1c1, type: 3}
@@ -1252,7 +1253,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 34
   m_Sprite: {fileID: 21300000, guid: 831b2fa08528f5c4f88045dc527f93d3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.24705882}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1366,6 +1367,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 544658353}
+  - {fileID: 229856341}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
