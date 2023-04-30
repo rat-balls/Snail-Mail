@@ -98,3 +98,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTile: {fileID: 1640393180129626059, guid: 32c2576bef9750c479b7163ad1f10636, type: 3}
+  SlimeReserve: 100
+  slimeBar: {fileID: 0}

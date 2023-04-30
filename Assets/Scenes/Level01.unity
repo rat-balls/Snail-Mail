@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08770659, g: 0.08279543, b: 0.05094102, a: 1}
+  m_IndirectSpecularColor: {r: 0.08770659, g: 0.08279786, b: 0.05094102, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -691,7 +691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801895824879847452, guid: e01bab7bc487cb04fa7c6f774cf88b47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.755
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 8801895824879847452, guid: e01bab7bc487cb04fa7c6f774cf88b47, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1351,8 +1351,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slimeTilePrefab: {fileID: 5573072016640419972, guid: 19784322edafd504c845f14f2dc6a2ed, type: 3}
   slimeContainer: {fileID: 1578461598}
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 8
   speed: 1
   characterPrefab: {fileID: 1014962994}
+  mailBox: {fileID: 1738011719}
   topLeftSprite: {fileID: 21300000, guid: 05b8a36ab42bc9e438102db831dfd1c1, type: 3}
   topRightSprite: {fileID: 21300000, guid: f60f34f0d7ca505418e05b838293f4b4, type: 3}
   bottomLeftSprite: {fileID: 21300000, guid: 406de8d94103de74a988190cfd908c12, type: 3}

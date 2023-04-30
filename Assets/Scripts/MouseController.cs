@@ -14,6 +14,7 @@ public class MouseController : MonoBehaviour
     public float speed;
     public GameObject characterPrefab;
     private CharacterInfo character;
+    public GameObject mailBox;
 
     private PathFinder pathFinder;
     private List<OverlayTile> path = new List<OverlayTile>();
@@ -55,7 +56,10 @@ public class MouseController : MonoBehaviour
 
         if (currentTileHit)
        {
-            Debug.Log(currentTileHit.collider.gameObject.tag);
+           if(currentTileHit.collider.gameObject.tag == "End"){
+               ScenesManager.Instance.LoadNextScene();
+               mailBox.GetComponent<SpriteRenderer>().enabled = true;
+            }
        }
    }
    private void MoveAlongPath()
@@ -135,7 +139,7 @@ public class MouseController : MonoBehaviour
    {
        Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
 
-       RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.down, Mathf.Infinity, interactLayer);
+       RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.down, 0.25f, interactLayer);
 
        return hit;
    }    
