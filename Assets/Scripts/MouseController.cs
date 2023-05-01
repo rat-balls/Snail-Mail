@@ -59,6 +59,12 @@ public class MouseController : MonoBehaviour
            if(currentTileHit.collider.gameObject.tag == "End"){
                ScenesManager.Instance.LoadNextScene();
                mailBox.GetComponent<SpriteRenderer>().enabled = true;
+            } else if(currentTileHit.collider.gameObject.tag == "Water"){
+                Debug.Log("Water");
+            } else if(currentTileHit.collider.gameObject.tag == "Oil"){
+                Debug.Log("Oil");
+            }  else if(currentTileHit.collider.gameObject.tag == "Lever"){
+                Debug.Log("Lever");
             }
        }
    }
@@ -74,7 +80,7 @@ public class MouseController : MonoBehaviour
         character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
         character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
 
-        if (Vector2.Distance(character.transform.position, targetPosition) < 0.00000001f)
+        if (Vector2.Distance(character.transform.position, targetPosition) < 0.0001f)
         {
             PositionCharacterOnTile(path[0]);
             path.RemoveAt(0);
