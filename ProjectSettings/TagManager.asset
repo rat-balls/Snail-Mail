@@ -8,6 +8,7 @@ TagManager:
   - End
   - Water
   - Lever
+  - GameMusic
   layers:
   - Default
   - TransparentFX
