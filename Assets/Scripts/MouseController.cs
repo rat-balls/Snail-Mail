@@ -7,10 +7,13 @@ using UnityEngine;
 public class MouseController : MonoBehaviour
 {
     [SerializeField] private GameObject slimeTilePrefab;
+    [SerializeField] private GameObject slimeHitboxPrefab;
     [SerializeField] private GameObject slimeContainer;
     [SerializeField] private LayerMask interactLayer;
+    [SerializeField] private LayerMask slimeLayer;
 
 
+    public float dist;
     public float speed;
     public GameObject characterPrefab;
     private CharacterInfo character;
@@ -24,6 +27,7 @@ public class MouseController : MonoBehaviour
     public Sprite bottomRightSprite;
 
     private bool hasSlimed = false;
+    public bool onSlime = false;
 
    private void Start()
    {
@@ -34,6 +38,7 @@ public class MouseController : MonoBehaviour
    {
        var focusedTileHit = GetFocusedOnTile();
        var currentTileHit = GetCurrentTile();
+       var slimeTileHit = GetSlimeTile();
 
        if (focusedTileHit.HasValue)
        {
@@ -60,12 +65,19 @@ public class MouseController : MonoBehaviour
                ScenesManager.Instance.LoadNextScene();
                mailBox.GetComponent<SpriteRenderer>().enabled = true;
             } else if(currentTileHit.collider.gameObject.tag == "Water"){
-                Debug.Log("Water");
+                character.SlimeReserve = 100f;
             } else if(currentTileHit.collider.gameObject.tag == "Oil"){
                 Debug.Log("Oil");
             }  else if(currentTileHit.collider.gameObject.tag == "Lever"){
                 Debug.Log("Lever");
             }
+       }
+
+       if (slimeTileHit)
+       {
+        onSlime = true;
+       } else {
+        onSlime = false;
        }
    }
    private void MoveAlongPath()
@@ -88,9 +100,11 @@ public class MouseController : MonoBehaviour
 
         if ((movementDirection.y != 0 || movementDirection.x != 0) && !hasSlimed)
         {   
-            hasSlimed = true;
-            StartCoroutine(Slime());
-            
+            if(!onSlime)
+            {
+                hasSlimed = true;
+                StartCoroutine(Slime());
+            }
         }
 
         if (movementDirection.y > 0)
@@ -121,7 +135,9 @@ public class MouseController : MonoBehaviour
     IEnumerator Slime()
     {
         var slimeTile = Instantiate(slimeTilePrefab, slimeContainer.transform);
+        var slimeBox = Instantiate(slimeHitboxPrefab, slimeContainer.transform);
         slimeTile.transform.position = new Vector3(characterPrefab.transform.position.x, characterPrefab.transform.position.y - 0.30f, characterPrefab.transform.position.z);
+        slimeBox.transform.position = new Vector3(characterPrefab.transform.position.x, characterPrefab.transform.position.y + 1.25f, characterPrefab.transform.position.z);
         character.SlimeReserve -= 5f;
         yield return new WaitForSeconds(0.34f);
         hasSlimed = false;
@@ -147,6 +163,14 @@ public class MouseController : MonoBehaviour
        Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
 
        RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.down, 0.25f, interactLayer);
+
+       return hit;
+   }    
+
+   public RaycastHit2D GetSlimeTile()
+   {
+       Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
+       RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.up, dist, slimeLayer);
 
        return hit;
    }    

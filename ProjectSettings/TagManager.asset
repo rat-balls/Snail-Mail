@@ -9,6 +9,7 @@ TagManager:
   - Water
   - Lever
   - GameMusic
+  - Cursor
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Interactable
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Slime
   - 
   - 
   - 
