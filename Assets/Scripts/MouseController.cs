@@ -64,7 +64,7 @@ public class MouseController : MonoBehaviour
 
         if (currentTileHit)
        {
-            
+            Debug.Log(currentTileHit.collider.gameObject.tag);
        }
    }
    private void MoveAlongPath()
@@ -87,10 +87,8 @@ public class MouseController : MonoBehaviour
 
         if ((movementDirection.y != 0 || movementDirection.x != 0) && !hasSlimed)
         {   
-            if(!onSlime)
-            {
-               StartCoroutine(Slime());
-            }
+            StartCoroutine(Slime());
+            
         }
 
         if (movementDirection.y > 0)
