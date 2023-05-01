@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slime
   - End
+  - Cursor
   layers:
   - Default
   - TransparentFX

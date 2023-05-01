@@ -15,9 +15,9 @@ public class SlimeDetector : MonoBehaviour
         Vector2 slimePos2d = new Vector2(transform.position.x, transform.position.y);
         RaycastHit2D hit = Physics2D.Raycast(slimePos2d, Vector2.up, 0.25f, playerLayer);
 
-        if (cursor == null)
+        if (Cursor == null)
         {
-            cursor = GameObject.FindGameObjectsWithTag("Cursor");
+            Cursor = GameObject.FindWithTag("Cursor");
         }
 
         if (!hit)
@@ -27,7 +27,7 @@ public class SlimeDetector : MonoBehaviour
                     New = false;
                 } else if (!New) {
                     Cursor.GetComponent<MouseController>().onSlime = false;
-                    Destroy(gameObject);
+                    Destroy(gameObject); 
                 }
                 slimeChecked = true;
             }

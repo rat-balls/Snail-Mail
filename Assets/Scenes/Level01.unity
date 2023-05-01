@@ -1509,6 +1509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cursor
       objectReference: {fileID: 0}
+    - target: {fileID: 7001497169764687476, guid: ac867e28ddae86842be7b3008bd94319, type: 3}
+      propertyPath: m_TagString
+      value: Cursor
+      objectReference: {fileID: 0}
     - target: {fileID: 7001497169764687479, guid: ac867e28ddae86842be7b3008bd94319, type: 3}
       propertyPath: onSlime
       value: 0
