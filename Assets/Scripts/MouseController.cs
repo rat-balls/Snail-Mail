@@ -66,6 +66,7 @@ public class MouseController : MonoBehaviour
                mailBox.GetComponent<SpriteRenderer>().enabled = true;
             } else if(currentTileHit.collider.gameObject.tag == "Water"){
                 character.SlimeReserve = 100f;
+                Debug.Log("Water");
             } else if(currentTileHit.collider.gameObject.tag == "Oil"){
                 Debug.Log("Oil");
             }  else if(currentTileHit.collider.gameObject.tag == "Lever"){
@@ -167,13 +168,22 @@ public class MouseController : MonoBehaviour
        return hit;
    }    
 
-   public RaycastHit2D GetSlimeTile()
+    public RaycastHit2D GetSlimeTile()
    {
-       Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
-       RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.up, dist, slimeLayer);
+        Vector2 charPos2d = new Vector2(character.transform.position.x, character.transform.position.y);
+        RaycastHit2D hit = Physics2D.Raycast(charPos2d, Vector2.up, 1000f, slimeLayer);
 
-       return hit;
-   }    
+        Debug.DrawRay(charPos2d, Vector2.up * 1000f, Color.green);
+
+        if (hit.collider != null && hit.collider.CompareTag("Slime"))
+        {
+            Debug.Log("Raycast hit an object with the 'Slime' tag.");
+        }
+
+        return hit;
+   }
+
+
 
    private void PositionCharacterOnTile(OverlayTile tile)
    {
