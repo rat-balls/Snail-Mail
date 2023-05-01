@@ -20,8 +20,12 @@ public class SlimeDetector : MonoBehaviour
             Cursor = GameObject.FindWithTag("Cursor");
         }
 
-        if (!hit)
-        {   
+        if (hit && !New) 
+        {
+            Debug.Log("Entering old slime");
+            Cursor.GetComponent<MouseController>().onSlime = true;
+            slimeChecked = false;
+        } else if (!hit) {   
             if(!slimeChecked){
                 if(New){
                     New = false;
@@ -31,10 +35,6 @@ public class SlimeDetector : MonoBehaviour
                 }
                 slimeChecked = true;
             }
-        } else if (hit && !New) {
-            Debug.Log("Entering old slime");
-            Cursor.GetComponent<MouseController>().onSlime = true;
-            slimeChecked = false;
-        }
+        } 
     }
 }
