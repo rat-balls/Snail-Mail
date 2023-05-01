@@ -11,10 +11,10 @@ public class MouseController : MonoBehaviour
     [SerializeField] private LayerMask interactLayer;
 
 
-
     public float speed;
     public GameObject characterPrefab;
     private CharacterInfo character;
+    public GameObject mailBox;
 
     private PathFinder pathFinder;
     private List<OverlayTile> path = new List<OverlayTile>();
@@ -23,14 +23,7 @@ public class MouseController : MonoBehaviour
     public Sprite bottomLeftSprite;
     public Sprite bottomRightSprite;
 
-    public Sprite dried_topLeftSprite;
-    public Sprite dried_topRightSprite;
-    public Sprite dried_bottomLeftSprite;
-    public Sprite dried_bottomRightSprite;
-
     private bool hasSlimed = false;
-    public bool onSlime = false;
-
 
    private void Start()
    {
@@ -43,11 +36,10 @@ public class MouseController : MonoBehaviour
        var currentTileHit = GetCurrentTile();
 
        if (focusedTileHit.HasValue)
-       {    
-            
+       {
            OverlayTile overlayTile = focusedTileHit.Value.collider.gameObject.GetComponent<OverlayTile>();
            if (overlayTile != null)
-           {    
+           {
                transform.position = overlayTile.transform.position;
                gameObject.GetComponent<SpriteRenderer>().sortingOrder = overlayTile.GetComponent<SpriteRenderer>().sortingOrder;
                if (Input.GetMouseButtonDown(0))
@@ -64,7 +56,16 @@ public class MouseController : MonoBehaviour
 
         if (currentTileHit)
        {
-            
+           if(currentTileHit.collider.gameObject.tag == "End"){
+               ScenesManager.Instance.LoadNextScene();
+               mailBox.GetComponent<SpriteRenderer>().enabled = true;
+            } else if(currentTileHit.collider.gameObject.tag == "Water"){
+                Debug.Log("Water");
+            } else if(currentTileHit.collider.gameObject.tag == "Oil"){
+                Debug.Log("Oil");
+            }  else if(currentTileHit.collider.gameObject.tag == "Lever"){
+                Debug.Log("Lever");
+            }
        }
    }
    private void MoveAlongPath()
@@ -79,18 +80,16 @@ public class MouseController : MonoBehaviour
         character.transform.position = Vector2.MoveTowards(character.transform.position, targetPosition, step);
         character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, zIndex);
 
-        if (Vector2.Distance(character.transform.position, targetPosition) < 0.00000001f)
+        if (Vector2.Distance(character.transform.position, targetPosition) < 0.0001f)
         {
             PositionCharacterOnTile(path[0]);
             path.RemoveAt(0);
         }
 
         if ((movementDirection.y != 0 || movementDirection.x != 0) && !hasSlimed)
-        {   
-            if(!onSlime)
-            {
-               StartCoroutine(Slime());
-            }
+        {
+            hasSlimed = true;
+            StartCoroutine(Slime());
         }
 
         if (movementDirection.y > 0)
@@ -98,16 +97,11 @@ public class MouseController : MonoBehaviour
             if (movementDirection.x > 0)
             {
                 character.GetComponent<SpriteRenderer>().sprite = topRightSprite;
-                if(character.SlimeReserve <= 0){
-                    character.GetComponent<SpriteRenderer>().sprite = dried_topRightSprite;
-                }
+
             }
             else
             {
                 character.GetComponent<SpriteRenderer>().sprite = topLeftSprite;
-                if(character.SlimeReserve <= 0){
-                    character.GetComponent<SpriteRenderer>().sprite = dried_topLeftSprite;
-                }
             }
         }
         else
@@ -115,23 +109,16 @@ public class MouseController : MonoBehaviour
             if (movementDirection.x > 0)
             {
                 character.GetComponent<SpriteRenderer>().sprite = bottomRightSprite;
-                if(character.SlimeReserve <= 0){
-                    character.GetComponent<SpriteRenderer>().sprite = dried_bottomRightSprite;
-                }
             }
             else
             {
                 character.GetComponent<SpriteRenderer>().sprite = bottomLeftSprite;
-                if(character.SlimeReserve <= 0){
-                    character.GetComponent<SpriteRenderer>().sprite = dried_bottomLeftSprite;
-                }
             }
         }
     }
 
     IEnumerator Slime()
-    {   
-        hasSlimed = true;
+    {
         var slimeTile = Instantiate(slimeTilePrefab, slimeContainer.transform);
         slimeTile.transform.position = new Vector3(characterPrefab.transform.position.x, characterPrefab.transform.position.y - 0.30f, characterPrefab.transform.position.z);
         character.SlimeReserve -= 5f;
