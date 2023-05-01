@@ -6,9 +6,7 @@ TagManager:
   tags:
   - Slime
   - End
-  - Water
-  - Lever
-  - GameMusic
+  - Cursor
   layers:
   - Default
   - TransparentFX
@@ -16,8 +14,8 @@ TagManager:
   - Interactable
   - Water
   - UI
-  - 
-  - 
+  - Walkable
+  - Player
   - 
   - 
   - 
